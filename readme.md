@@ -19,7 +19,7 @@ A Django-based web application for managing movie collections with external movi
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/pranjal2523/movie_collection_dango_app
+git clone https://github.com/pranjal2523/movie_collection_dango_app.git
 cd movie_collection_dango_app
 ```
 
