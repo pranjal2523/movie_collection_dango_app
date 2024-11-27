@@ -19,8 +19,8 @@ A Django-based web application for managing movie collections with external movi
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/movie-collection-project.git
-cd movie-collection-project
+git clone [https://github.com/yourusername/movie-collection-project.git](https://github.com/pranjal2523/movie_collection_dango_app)
+cd movie_collection_dango_app
 ```
 
 ### 2. Create Virtual Environment
@@ -40,11 +40,12 @@ Create a `.env` file in the project root:
 DJANGO_SECRET_KEY=your_secret_key
 MOVIE_API_USERNAME=your_api_username
 MOVIE_API_PASSWORD=your_api_password
-DEBUG=True
+DEBUG=False
 ```
 
 ### 5. Database Setup
 ```bash
+python manage.py makemigrations
 python manage.py migrate
 ```
 
@@ -57,7 +58,6 @@ python manage.py runserver
 
 ### Authentication
 - `POST /register/`: User registration
-- `POST /token/`: JWT token generation
 
 ### Movies
 - `GET /movies/`: List movies (paginated)
@@ -73,13 +73,3 @@ python manage.py runserver
 - `GET /request-count/`: Get total request count
 - `POST /request-count/reset/`: Reset request counter
 
-## Testing
-```bash
-python manage.py test
-```
-
-## Deployment Notes
-- Use production-ready database (PostgreSQL recommended)
-- Set `DEBUG=False`
-- Generate a strong secret key
-- Configure proper SSL for external API
