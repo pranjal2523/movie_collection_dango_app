@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "68cac5b7-8066-4d50-909f-1f3a899d2356",
+		"name": "OneFin_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26230781",
+		"_collection_link": "https://orange-crescent-622181.postman.co/workspace/Team-Workspace~d336e3f3-aee9-4085-8659-1c07e3660b51/collection/26230781-68cac5b7-8066-4d50-909f-1f3a899d2356?action=share&source=collection_link&creator=26230781"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"pranjal\",\n    \"password\": \"Pranjal@123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/register/"
+			},
+			"response": []
+		},
+		{
+			"name": "movies",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyODE5MTIyLCJpYXQiOjE3MzI3MzI3MjIsImp0aSI6ImYzODJkNjQ4M2FlOTQ2ZmZiMDUxNDQ0MjFmNTlkNTAyIiwidXNlcl9pZCI6MX0.kQXFV7IcU5D-AL8ARzZLjj0UqLJ0rpMX5-QtCeH98q0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/movies/?page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"movies",
+						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "collection",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyODE5MTIyLCJpYXQiOjE3MzI3MzI3MjIsImp0aSI6ImYzODJkNjQ4M2FlOTQ2ZmZiMDUxNDQ0MjFmNTlkNTAyIiwidXNlcl9pZCI6MX0.kQXFV7IcU5D-AL8ARzZLjj0UqLJ0rpMX5-QtCeH98q0",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8000/collection/"
+			},
+			"response": []
+		},
+		{
+			"name": "collection",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyODE5MTIyLCJpYXQiOjE3MzI3MzI3MjIsImp0aSI6ImYzODJkNjQ4M2FlOTQ2ZmZiMDUxNDQ0MjFmNTlkNTAyIiwidXNlcl9pZCI6MX0.kQXFV7IcU5D-AL8ARzZLjj0UqLJ0rpMX5-QtCeH98q0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Thriller Collection\",\n    \"description\": \"Best thriller movies\",\n    \"movies\": [\n        {\n            \"title\": \"Inception\",\n            \"description\": \"Mind-bending thriller\",\n            \"genres\": \"Sci-Fi, Thriller\",\n            \"uuid\": \"323e4567-e89b-12d3-a456-426614174002\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/collection/"
+			},
+			"response": []
+		},
+		{
+			"name": "collection/<collection_uuid>/",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyODE5MTIyLCJpYXQiOjE3MzI3MzI3MjIsImp0aSI6ImYzODJkNjQ4M2FlOTQ2ZmZiMDUxNDQ0MjFmNTlkNTAyIiwidXNlcl9pZCI6MX0.kQXFV7IcU5D-AL8ARzZLjj0UqLJ0rpMX5-QtCeH98q0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Updated Thriller Collection\",\n    \"description\": \"Updated best thriller movies\",\n    \"movies\": [\n        {\n            \"title\": \"Shutter Island\",\n            \"description\": \"Psychological thriller\",\n            \"genres\": \"Thriller, Mystery\",\n            \"uuid\": \"523e4567-e89b-12d3-a456-426614174004\"\n        },\n        {\n            \"title\": \"Shutter Island Part 2\",\n            \"description\": \"Love Story\",\n            \"genres\": \"Love Story\",\n            \"uuid\": \"523e4567-e89b-12d3-a456-426614174114\"\n        },\n        {\n            \"title\": \"Shutter Island Part 3\",\n            \"description\": \"Thriller movie.\",\n            \"genres\": \"Sci Fic, Thriller\",\n            \"uuid\": \"523e4567-e89b-12d3-a456-426614174224\"\n        }\n\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/collection/dcdc2a2b-f968-4575-b1e8-f04d5edf0064/"
+			},
+			"response": []
+		},
+		{
+			"name": "collection/<collection_uuid>/",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyODE5MTIyLCJpYXQiOjE3MzI3MzI3MjIsImp0aSI6ImYzODJkNjQ4M2FlOTQ2ZmZiMDUxNDQ0MjFmNTlkNTAyIiwidXNlcl9pZCI6MX0.kQXFV7IcU5D-AL8ARzZLjj0UqLJ0rpMX5-QtCeH98q0",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8000/collection/dcdc2a2b-f968-4575-b1e8-f04d5edf0064/"
+			},
+			"response": []
+		},
+		{
+			"name": "collection/<collection_uuid>/",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyODE5MTIyLCJpYXQiOjE3MzI3MzI3MjIsImp0aSI6ImYzODJkNjQ4M2FlOTQ2ZmZiMDUxNDQ0MjFmNTlkNTAyIiwidXNlcl9pZCI6MX0.kQXFV7IcU5D-AL8ARzZLjj0UqLJ0rpMX5-QtCeH98q0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/collection/b063fc28-0c91-41ea-b5f0-bf8d33a1ac50/"
+			},
+			"response": []
+		},
+		{
+			"name": "request-count",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyODE5MTIyLCJpYXQiOjE3MzI3MzI3MjIsImp0aSI6ImYzODJkNjQ4M2FlOTQ2ZmZiMDUxNDQ0MjFmNTlkNTAyIiwidXNlcl9pZCI6MX0.kQXFV7IcU5D-AL8ARzZLjj0UqLJ0rpMX5-QtCeH98q0",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8000/request-count/"
+			},
+			"response": []
+		},
+		{
+			"name": "request-count/reset/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyODE5MTIyLCJpYXQiOjE3MzI3MzI3MjIsImp0aSI6ImYzODJkNjQ4M2FlOTQ2ZmZiMDUxNDQ0MjFmNTlkNTAyIiwidXNlcl9pZCI6MX0.kQXFV7IcU5D-AL8ARzZLjj0UqLJ0rpMX5-QtCeH98q0",
+						"type": "text"
+					}
+				],
+				"url": "http://localhost:8000/request-count/reset/"
+			},
+			"response": []
+		}
+	]
+}
