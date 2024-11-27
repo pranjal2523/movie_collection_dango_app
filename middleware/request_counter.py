@@ -1,6 +1,4 @@
 import threading
-from django.http import JsonResponse
-from django.views import View
 from movies.models import RequestCounter
 
 
@@ -13,7 +11,9 @@ class RequestCounterMiddleware:
     def __call__(self, request):
         # Increment the request count for every request
         with self._lock:
-            RequestCounter.objects.create(user=request.user if request.user.is_authenticated else None)
+            RequestCounter.objects.create(
+                user=request.user if request.user.is_authenticated else None
+            )
         return self.get_response(request)
 
     @classmethod

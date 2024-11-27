@@ -1,24 +1,21 @@
 import requests
-import uuid
 from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.pagination import PageNumberPagination
 from .models import Collection, Movie
-from .serializers import CollectionSerializer, MovieSerializer
-from django.db.models import Count
+from .serializers import CollectionSerializer
 import urllib3
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 from django.http import JsonResponse
-from django.views import View
 from middleware.request_counter import RequestCounterMiddleware
 
 
 # Disable SSL warnings
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 
 class MovieListView(APIView):
     permission_classes = [IsAuthenticated]
@@ -43,14 +40,15 @@ class MovieListView(APIView):
             url = settings.MOVIE_API_URL + f'?page={page}' 
             # Make request with authentication and SSL verification bypass
             response = session.get(
-                url, 
-                auth=(settings.MOVIE_API_USERNAME, settings.MOVIE_API_PASSWORD),
+                url,
+                auth=(
+                    settings.MOVIE_API_USERNAME,
+                    settings.MOVIE_API_PASSWORD
+                ),
                 params=request.query_params,
                 verify=False
             )
             response.raise_for_status()
-
-            # Return paginated movie data
             return Response(response.json())
 
         except requests.exceptions.SSLError as ssl_error:
@@ -86,7 +84,9 @@ class CollectionView(APIView):
         collection_serializer = CollectionSerializer(collections, many=True)
 
         # Calculate top 3 favorite genres
-        movie_genres = Movie.objects.filter(collection__user=request.user).values('genres')
+        movie_genres = Movie.objects.filter(
+            collection__user=request.user
+        ).values('genres')
         genre_counts = {}
         for movie in movie_genres:
             genres = movie['genres'].split(',') if movie['genres'] else []
@@ -108,7 +108,10 @@ class CollectionView(APIView):
         serializer = CollectionSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             collection = serializer.save()
-            return Response({'collection_uuid': collection.uuid}, status=status.HTTP_201_CREATED)
+            return Response(
+                {'collection_uuid': collection.uuid},
+                status=status.HTTP_201_CREATED
+            )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -121,7 +124,10 @@ class CollectionDetailView(APIView):
             serializer = CollectionSerializer(collection)
             return Response(serializer.data)
         except Collection.DoesNotExist:
-            return Response({'message': "No collection found!"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {'message': "No collection found!"},
+                status=status.HTTP_404_NOT_FOUND
+            )
 
     def put(self, request, pk):
         try:
@@ -135,30 +141,41 @@ class CollectionDetailView(APIView):
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
         except Collection.DoesNotExist:
-            return Response({'message': "No collection found!"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {'message': "No collection found!"},
+                status=status.HTTP_404_NOT_FOUND
+            )
 
     def delete(self, request, pk):
         try:
             collection = Collection.objects.get(uuid=pk, user=request.user)
             collection.delete()
-            return Response({'message': "Collection deleted successfully!"}, status=status.HTTP_204_NO_CONTENT)
+            return Response(
+                {'message': "Collection deleted successfully!"},
+                status=status.HTTP_204_NO_CONTENT
+            )
         except Collection.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        
 
 
 class RequestCountView(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request):
         # Return the current request count
         return JsonResponse({
             'requests': RequestCounterMiddleware.get_count()
         })
 
+
 class RequestCountResetView(APIView):
     permission_classes = [IsAuthenticated]
+
     def post(self, request):
         # Reset the request count to 0
         RequestCounterMiddleware.reset_count()

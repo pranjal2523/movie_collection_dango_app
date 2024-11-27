@@ -4,6 +4,7 @@ from rest_framework import status
 from .serializers import UserRegistrationSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
+
 class UserRegistrationView(APIView):
     def post(self, request):
         serializer = UserRegistrationSerializer(data=request.data)
